@@ -11,9 +11,29 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'machakann/vim-highlightedyank'
 Plug 'morhetz/gruvbox'
 
+" Also
+Plug 'tpope/vim-surround'
+Plug 'pangloss/vim-javascript'
+Plug 'leafOfTree/vim-svelte-plugin'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 call plug#end()
 
 set shell=/bin/zsh
+
+" vars
+set autoindent
+set ruler
+set path+=**
+set wildmenu
+set relativenumber
+set clipboard=unnamed " set the clipboard
+set backspace=indent,eol,start " Fixes not working 'delete' button
+set foldmethod=indent " Enable folding
+set foldlevel=99
+set updatetime=300
+
+inoremap jk <ESC>
 
 " Setting the leader
 let mapleader="\<Space>"
@@ -22,9 +42,6 @@ let mapleader="\<Space>"
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>x :x<CR>
 nnoremap <Leader>q :q<CR>
-
-" set the clipboard
-set clipboard=unnamed
 
 " Copy to the system clipboard
 vnoremap <Leader>y "+y
@@ -76,7 +93,7 @@ set smarttab
 set expandtab                            
 
 " Color
-let g:gruvbox_contrast_dark = 'hard'
+"let g:gruvbox_contrast_dark = 'hard'
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -92,6 +109,6 @@ set ruler                                " Show line, column number
 set viminfo='20,<1000                    " Increase the copy/paste-buffer
 set noerrorbells visualbell t_vb=        " Get rid of bell sound on error
 set nowrap                               " Turn off text wrapping
-set colorcolumn=88                       " Column number for vertical line
+set colorcolumn=100                      " Column number for vertical line
 set cursorline                           " Highlight the line of the cursor
 set t_Co=256                             " Required for vim colorscheme show up in tmux

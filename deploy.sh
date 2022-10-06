@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 
-STACK_NAME=${1:-dev-env}
+STACK_NAME=${1:-dotfiles}
 REGION=${2:-eu-central-1}
 PROFILE=${3:-default}
 

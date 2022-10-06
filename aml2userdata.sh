@@ -6,10 +6,11 @@ get_dotfiles () {
 
     echo "(1/4): GETTING DOTFILES..."
     local DIR=/home/ec2-user
-    git clone https://github.com/parkh/dev-env.git $DIR/dotfiles
+    git clone https://github.com/parkh/dotfiles.git $DIR/dotfiles
+    ln -s $DIR/dotfiles/.quotes $DIR/.quotes
     ln -s $DIR/dotfiles/.tmux.conf $DIR/.tmux.conf
     ln -s $DIR/dotfiles/.vimrc $DIR/.vimrc
-    chown -R ec2-user:ec2-user $DIR/dotfiles $DIR/.vimrc $DIR/.tmux.conf
+    chown -R ec2-user:ec2-user $DIR/dotfiles $DIR/.vimrc $DIR/.tmux.conf $DIR/.quotes
 
 }
 
