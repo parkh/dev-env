@@ -65,7 +65,7 @@ setup_zsh () {
     yum -y install util-linux-user
     chsh -s /bin/zsh ec2-user
     # Add conda to end of zshrc
-    echo "source ~/.dlamirc" >> $DIR/.zshrc
+    #echo "source ~/.dlamirc" >> $DIR/.zshrc
 
 }
 

@@ -17,6 +17,10 @@ Plug 'pangloss/vim-javascript'
 Plug 'leafOfTree/vim-svelte-plugin'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+let g:coc_global_extensions = [
+\ 'coc-tsserver'
+\ ]
+
 call plug#end()
 
 set shell=/bin/zsh
