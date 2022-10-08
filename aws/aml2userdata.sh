@@ -71,7 +71,7 @@ setup_nodejs () {
 
     cd $DIR
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    . ~/.nvm/nvm.sh
+    . .nvm/nvm.sh
     nvm install --lts
     cd ..
 
