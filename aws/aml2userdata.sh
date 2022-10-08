@@ -18,7 +18,7 @@ setup_dev_tools () {
 
 setup_zsh () {
 
-    echo "(7/8) SETTING UP ZSH..."
+    echo "(2/8) SETTING UP ZSH..."
 
     local DIR=/home/ec2-user
 
@@ -43,7 +43,7 @@ setup_zsh () {
 
 setup_python () {
 
-    echo "(2/8) SETTING UP PYTHON"
+    echo "(3/8) SETTING UP PYTHON"
 
     local DIR=/home/ec2-user
     local PYTHON_VERSION=3.10.7
@@ -65,13 +65,13 @@ setup_python () {
 
 setup_nodejs () {
 
-    echo "(2/8) SETTING UP NODEJS"
+    echo "(4/8) SETTING UP NODEJS"
 
     local DIR=/home/ec2-user
 
     cd $DIR
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    . .nvm/nvm.sh
+    . /.nvm/nvm.sh
     nvm install --lts
     cd ..
 
@@ -79,7 +79,7 @@ setup_nodejs () {
 
 setup_neovim () {
 
-    echo "(4/8) SETTING UP NEOVIM..."
+    echo "(5/8) SETTING UP NEOVIM..."
 
     local DIR=/home/ec2-user
 
@@ -101,7 +101,7 @@ setup_neovim () {
 
 setup_vim () {
 
-    echo "(5/8) SETTING UP VIM..."
+    echo "(6/8) SETTING UP VIM..."
     local DIR=/home/ec2-user
 
 
@@ -119,7 +119,7 @@ setup_vim () {
 
 setup_tmux () {
 
-    echo "(6/8) SETTING UP TMUX..."
+    echo "(7/8) SETTING UP TMUX..."
     # Install tmux dependencies
     yum -y install ncurses-devel
     yum -y install libevent-devel
@@ -139,7 +139,7 @@ setup_tmux () {
 
 get_dotfiles () {
 
-    echo "(3/8): GETTING DOTFILES..."
+    echo "(8/8): GETTING DOTFILES..."
 
     local DIR=/home/ec2-user
     git clone https://github.com/parkh/dev-env.git $DIR/dev-env
