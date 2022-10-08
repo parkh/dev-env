@@ -1,6 +1,9 @@
-#!/bin/bash
+#!/bin/bash -xe
+exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
+
 # Setting up an Amazon Linux 2 Instance with the Deep Learning AMI
 set -e -x
+
 
 setup_dev_tools () {
 
