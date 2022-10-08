@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 
-STACK_NAME=${1:-dotfiles}
+STACK_NAME=${1:-dev-env}
 REGION=${2:-eu-central-1}
 PROFILE=${3:-default}
 
@@ -10,9 +10,10 @@ deploy () {
 
   ${CMD} deploy \
   --stack-name ${STACK_NAME} \
-  --template-file ./templates/ec2.yml \
-  --parameter-overrides $(cat ./overrides.ini) \
+  --template-file ./aws/templates/ec2.yml \
+  --parameter-overrides $(cat ./aws/overrides.ini) \
   --capabilities CAPABILITY_NAMED_IAM CAPABILITY_IAM CAPABILITY_AUTO_EXPAND
+
 }
 
 deploy

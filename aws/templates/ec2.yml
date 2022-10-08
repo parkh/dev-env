@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Development environment on EC2."
+Description: "Development Environment on EC2."
 Parameters:
   UserDataURL:
     Type: String
