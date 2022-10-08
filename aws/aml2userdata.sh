@@ -14,6 +14,15 @@ setup_dev_tools () {
     # Install htop
     yum -y install htop
 
+    # Download, build and install cmake
+    wget https://cmake.org/files/v3.18/cmake-3.18.0.tar.gz
+    tar -xvzf cmake-3.18.0.tar.gz
+    cd cmake-3.18.0
+    ./bootstrap
+    make
+    sudo make install
+    cd ..
+
 }
 
 setup_zsh () {
@@ -83,8 +92,7 @@ setup_neovim () {
 
     local DIR=/home/ec2-user
 
-    sudo yum install -y cmake
-    sudo python3.10 -m pip install neovim --upgrade
+    sudo pip-3 install neovim --upgrade
     (
         cd $DIR
         tmpdir="$(mktemp -d)"
