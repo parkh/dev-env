@@ -1,10 +1,10 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Data science dev environment on EC2."
+Description: "Development environment on EC2."
 Parameters:
   UserDataURL:
     Type: String
-    Default: "https://raw.githubusercontent.com/parkh/dotfiles/master/aml2userdata.sh"
+    Default: "https://raw.githubusercontent.com/parkh/dev-env/master/aws/aml2userdata.sh"
   SecurityGroups:
     Type: CommaDelimitedList
     Default: sg-<PUT IN YOUR VPC SECURITY GROUP>
