@@ -1,18 +1,9 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'Chiel92/vim-autoformat'
-Plug 'tmhedberg/SimpylFold'
-Plug 'preservim/nerdtree'
-Plug 'itchyny/lightline.vim'
-Plug 'zxqfl/tabnine-vim'
-Plug 'tpope/vim-commentary'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'jiangmiao/auto-pairs'
-Plug 'machakann/vim-highlightedyank'
 Plug 'morhetz/gruvbox'
-
-" Also
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'preservim/nerdtree'
 Plug 'pangloss/vim-javascript'
 Plug 'leafOfTree/vim-svelte-plugin'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -21,13 +12,22 @@ let g:coc_global_extensions = [
 \ 'coc-tsserver'
 \ ]
 
+Plug 'Chiel92/vim-autoformat'
+Plug 'tmhedberg/SimpylFold'
+Plug 'itchyny/lightline.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'jiangmiao/auto-pairs'
+Plug 'machakann/vim-highlightedyank'
+
+" Also
+
 call plug#end()
+
 
 set shell=/bin/zsh
 
 " vars
 set autoindent
-set ruler
 set path+=**
 set wildmenu
 set relativenumber
