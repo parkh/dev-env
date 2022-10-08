@@ -16,7 +16,7 @@ Parameters:
     Default: subnet-<PUT IN YOUR VPC SUBNET>
   InstanceType:                                        
     Type: String
-    Default: t3.large
+    Default: t3.xlarge
   KeyName: 
     Type: String
     Default: <PUT IN NAME OF YOUR AWS PEM KEY> 
