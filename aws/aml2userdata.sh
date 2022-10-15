@@ -11,18 +11,35 @@ setup_dev_tools () {
     yum erase openssl-devel -y
     yum install openssl11 openssl11-devel  libffi-devel bzip2-devel wget -y
 
+    yum install gcc-c++ -y
+
     # Install htop
     yum -y install htop
 
     # Download, build and install cmake
-    wget https://cmake.org/files/v3.18/cmake-3.18.0.tar.gz
-    tar -xvzf cmake-3.18.0.tar.gz
-    cd cmake-3.18.0
+    local CMAKE_VERSION=3.24
+    local CMAKE_VERSION_FULL=3.24.2
+
+    wget https://cmake.org/files/v$CMAKE_VERSION/cmake-$CMAKE_VERSION_FULL.tar.gz
+    tar -xvzf cmake-$CMAKE_VERSION_FULL.tar.gz
+    cd cmake-$CMAKE_VERSION_FULL
     ./bootstrap
     make
-    sudo make install
+    make install
     cd ..
 
+    # Make `cmake3` the default for `cmake`
+    alternatives --install /usr/local/bin/cmake cmake /usr/bin/cmake 10 \
+    --slave /usr/local/bin/ctest ctest /usr/bin/ctest \
+    --slave /usr/local/bin/cpack cpack /usr/bin/cpack \
+    --slave /usr/local/bin/ccmake ccmake /usr/bin/ccmake \
+    --family cmake
+
+    alternatives --install /usr/local/bin/cmake cmake /usr/bin/cmake3 20 \
+    --slave /usr/local/bin/ctest ctest /usr/bin/ctest3 \
+    --slave /usr/local/bin/cpack cpack /usr/bin/cpack3 \
+    --slave /usr/local/bin/ccmake ccmake /usr/bin/ccmake3 \
+    --family cmake
 }
 
 setup_zsh () {
@@ -60,15 +77,12 @@ setup_python () {
     cd $DIR
     wget https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz
     tar -xf Python-$PYTHON_VERSION.tgz
-    #chown -R ec2-user:ec2-user Python-$PYTHON_VERSION
 
     cd Python-$PYTHON_VERSION
     ./configure --enable-optimizations
     make -j $(nproc)
-    sudo make altinstall
-    cd ..
-
-    sudo yum -y install python3-pip
+    make altinstall
+    cd ../..
 
 }
 
@@ -92,7 +106,8 @@ setup_neovim () {
 
     local DIR=/home/ec2-user
 
-    sudo pip-3 install neovim --upgrade
+    /usr/local/bin/python3.10 -m pip install neovim --upgrade
+
     (
         cd $DIR
         tmpdir="$(mktemp -d)"
@@ -100,7 +115,7 @@ setup_neovim () {
         git clone https://github.com/neovim/neovim.git
         cd neovim
         make CMAKE_BUILD_TYPE=Release
-        sudo make install
+        make install
         cd ../../
         rm -r $tmpdir
     )
@@ -112,7 +127,6 @@ setup_vim () {
     echo "(6/8) SETTING UP VIM..."
     local DIR=/home/ec2-user
 
-
     # Install black for formatting
     pip3 install black
 
@@ -120,6 +134,7 @@ setup_vim () {
     curl -fLo $DIR/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     chown -R ec2-user:ec2-user $DIR/.vim
+
     # Install packages
     runuser -l ec2-user -c 'vim +PlugInstall +qall'
 

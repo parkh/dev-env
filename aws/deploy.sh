@@ -10,7 +10,7 @@ deploy () {
 
   ${CMD} deploy \
   --stack-name ${STACK_NAME} \
-  --template-file ./aws/templates/ec2.yml \
+  --template-file ./aws/ec2.yml \
   --parameter-overrides $(cat ./aws/overrides.ini) \
   --capabilities CAPABILITY_NAMED_IAM CAPABILITY_IAM CAPABILITY_AUTO_EXPAND
 
