@@ -133,6 +133,8 @@ setup_neovim () {
 
     echo "alias v=\"nvim\"" >> $DIR/.zshrc
 
+    curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+
 }
 
 setup_vim () {
