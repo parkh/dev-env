@@ -14,7 +14,7 @@ let g:coc_global_extensions = [
 
 Plug 'Chiel92/vim-autoformat'
 Plug 'tmhedberg/SimpylFold'
-Plug 'itchyny/lightline.vim'
+"Plug 'itchyny/lightline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jiangmiao/auto-pairs'
 "Plug 'machakann/vim-highlightedyank'
