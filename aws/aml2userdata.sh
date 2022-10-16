@@ -93,9 +93,8 @@ setup_nodejs () {
     local DIR=/home/ec2-user
 
     cd $DIR
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    . /.nvm/nvm.sh
-    nvm install --lts
+    curl -fsSL https://rpm.nodesource.com/setup_16.x | bash -
+    yum -y install nodejs
     cd ..
 
 }
@@ -107,6 +106,7 @@ setup_neovim () {
     local DIR=/home/ec2-user
 
     /usr/local/bin/python3.10 -m pip install neovim --upgrade
+    npm install -g neovim
 
     (
         cd $DIR
@@ -119,6 +119,19 @@ setup_neovim () {
         cd ../../
         rm -r $tmpdir
     )
+
+    mkdir -p $DIR/.config/nvim
+
+    curl -fLo "${XDG_DATA_HOME:-$DIR/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+    chown -R ec2-user:ec2-user \
+        $DIR/.config \
+        $DIR/.local
+
+    runuser -l ec2-user -c 'nvim --headless +PlugInstall +qa'
+
+    echo "alias v=\"nvim\"" >> $DIR/.zshrc
 
 }
 
@@ -140,9 +153,32 @@ setup_vim () {
 
 }
 
+setup_dotfiles () {
+
+    echo "(7/8): GETTING DOTFILES..."
+
+    local DIR=/home/ec2-user
+
+    git clone https://github.com/parkh/dev-env.git $DIR/dev-env
+    ln -s $DIR/dev-env/dotfiles/.quotes $DIR/.quotes
+    ln -s $DIR/dev-env/dotfiles/.tmux.conf $DIR/.tmux.conf
+    #ln -s $DIR/dev-env/dotfiles/.vimrc $DIR/.vimrc
+    ln -s $DIR/dev-env/dotfiles/.vimrc $DIR/.config/nvim/init.vim
+
+    mkdir $DIR/projects
+
+    chown -R ec2-user:ec2-user \
+        $DIR/dev-env \
+        $DIR/.tmux.conf \
+        $DIR/.quotes \
+        $DIR/.config \
+        $DIR/projects
+
+}
+
 setup_tmux () {
 
-    echo "(7/8) SETTING UP TMUX..."
+    echo "(8/8) SETTING UP TMUX..."
     # Install tmux dependencies
     yum -y install ncurses-devel
     yum -y install libevent-devel
@@ -160,29 +196,10 @@ setup_tmux () {
 
 }
 
-get_dotfiles () {
-
-    echo "(8/8): GETTING DOTFILES..."
-
-    local DIR=/home/ec2-user
-    git clone https://github.com/parkh/dev-env.git $DIR/dev-env
-    ln -s $DIR/dev-env/dotfiles/.quotes $DIR/.quotes
-    ln -s $DIR/dev-env/dotfiles/.tmux.conf $DIR/.tmux.conf
-    ln -s $DIR/dev-env/dotfiles/.vimrc $DIR/.vimrc
-    ln -s $DIR/dev-env/dotfiles/.vimrc $DIR/.config/nvim/init.vim
-    chown -R ec2-user:ec2-user \
-        $DIR/dev-env \
-        $DIR/.tmux.conf \
-        $DIR/.vimrc \
-        $DIR/.config/nvim/init.vim \
-        $DIR/.quotes
-
-}
-
 setup_dev_tools
 setup_zsh
 setup_python
 setup_nodejs
 setup_neovim
+setup_dotfiles
 setup_tmux
-get_dotfiles
