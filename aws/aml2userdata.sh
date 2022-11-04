@@ -132,6 +132,9 @@ setup_neovim () {
     runuser -l ec2-user -c 'nvim --headless +PlugInstall +qa'
 
     echo "alias v=\"nvim\"" >> $DIR/.zshrc
+    echo "alias t=\"tmux\"" >> $DIR/.zshrc
+    echo "alias tn=\"tmux new -s\"" >> $DIR/.zshrc
+    echo "alias ta=\"tmux a\"" >> $DIR/.zshrc
 
     curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
 
