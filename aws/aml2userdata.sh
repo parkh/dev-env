@@ -193,11 +193,26 @@ setup_tmux () {
     cd tmux
     sh autogen.sh
     ./configure && make install
-    cd ..
+    cd /home/ec2-user
 
     # Get a simple startup script
     mv /home/ec2-user/dev-env/aws/stm.sh /bin/stm 
     chmod +x /bin/stm
+
+}
+
+setup_tmux () {
+
+    echo "(9/8) SETTING UP SILVER SEARCHER..."
+    # Install silver searcher dependencies
+    yum -y install pcre-devel
+    yum -y install xz-devel
+
+    cd /usr/local/src
+    git clone https://github.com/ggreer/the_silver_searcher.git
+    cd the_silver_searcher
+    ./build.sh && make install
+    cd /home/ec2-user
 
 }
 
@@ -208,3 +223,4 @@ setup_nodejs
 setup_neovim
 setup_dotfiles
 setup_tmux
+setup_silver_searcher
