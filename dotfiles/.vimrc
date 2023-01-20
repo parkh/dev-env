@@ -35,6 +35,9 @@ set foldmethod=indent " Enable folding
 set foldlevel=99
 set updatetime=300
 
+" Disable mouse
+set mouse=
+
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
